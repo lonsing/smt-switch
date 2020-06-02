@@ -1,6 +1,8 @@
 #!/bin/bash
 
-BTOR_VERSION=ee44ed2eadd1eef51549ac7236e6a4f02f24f12a
+#BTOR_VERSION=ee44ed2eadd1eef51549ac7236e6a4f02f24f12a
+# version: Wed May 20
+BTOR_VERSION=59c9ade58bdcef51e07b2239972d35647b40cadb
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 DEPS=$DIR/../deps
@@ -13,9 +15,11 @@ if [ ! -d "$DEPS/boolector" ]; then
     chmod -R 777 boolector
     cd boolector
     git checkout -f $BTOR_VERSION
-    CFLAGS="" ./contrib/setup-btor2tools.sh
+    CFLAGS=""
+    ./contrib/setup-btor2tools.sh
     ./contrib/setup-cadical.sh
-    ./configure.sh --only-cadical -fPIC
+# compile with debug info
+    ./configure.sh -g --only-cadical -fPIC
     cd build
     make -j$(nproc)
     cd $DIR
