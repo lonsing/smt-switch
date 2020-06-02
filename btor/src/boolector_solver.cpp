@@ -326,7 +326,7 @@ Term BoolectorSolver::get_value(Term & t) const
       boolector_release(btor, idx);
       boolector_release(btor, elem);
     }
-    boolector_copy(btor, stores);
+    // PATCH 2 June 2020: boolector_copy(btor, stores);
     result = std::make_shared<BoolectorTerm>(btor, stores);
 
     // free memory
